@@ -8,6 +8,7 @@ use App\Models\Rental;
 use App\Models\Camera;
 use App\Models\Client;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class RentController extends Controller
 {
@@ -18,13 +19,19 @@ class RentController extends Controller
      */
     public function index()
     {
-        $rents = Rental::all();
-        echo("hola");
+        $rents = Rental::with('camera','client')->get();
+        $cameras = Camera::all();
+        $clients = Client::all();
         if(count($rents) == 0) {
             return response()->json(['Mensaje' => 'No hay ninguna camara alquilada'], 404);
         }
 
-        return response()->json($rents);
+        // return response()->json($rents);
+        return response()->json([
+            'rents' => $rents,
+            'cameras' => $cameras,
+            'clients' => $clients
+        ]);
          
     }
 
@@ -70,7 +77,7 @@ class RentController extends Controller
         $rent->client_id = $request->client_id;
         $rent->start_date = Carbon::now();
         $rent->end_Date = Carbon::now()->addDays(7);
-        $rent->status = $request->status;
+        $rent->status = 1;
         $rent->save();
 
         // Actualizamos el estado de la cámara
