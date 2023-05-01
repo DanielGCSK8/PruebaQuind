@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LogicController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+    
 });
+
+Route::get('/order', [LogicController::class, 'orderNumbers'])->name('logic.order');
+Route::get('/verifyString', [LogicController::class, 'verifyString'])->name('logic.verifyString');
