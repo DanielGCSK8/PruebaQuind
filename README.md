@@ -33,7 +33,7 @@ MySQL
 
 - Ejecutar en la consola el siguiente comando: cp .env.example .env
 Esto generará el archivo .env en base al .env.example.
-- crear una base de datos con el siguiente nombre: quind
+- crear una base de datos en MySQL con el siguiente nombre: quind
 - generar el app key de la aplicación con el siguiente comando: php artisan key:generate
 - ejecutar el siguiente comando: php artisan migrate --seed para generar las migraciones y ejecutar los seeders.
 - ejecutar el siguiente comando: npm install
