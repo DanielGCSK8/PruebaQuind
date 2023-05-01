@@ -31,7 +31,7 @@ MySQL
 
 ## Ajustes y ejecución
 
-- Ejecutar en la consola el siguiente comando: php artisan copy-env
+- Ejecutar en la consola el siguiente comando: cp .env.example .env
 Esto generará el archivo .env en base al .env.example.
 - crear una base de datos con el siguiente nombre: quind
 - generar el app key de la aplicación con el siguiente comando: php artisan generate:key
