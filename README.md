@@ -25,8 +25,8 @@ MySQL
 
 ### Instalación
 
-- Clonar este repositorio
-- Una vez clonado, ejecutar el siguiente comando: composer install
+- Usar git para clonar este repositorio, ejecute este comando: git clone https://github.com/DanielGCSK8/PruebaQuind.git
+- Una vez clonado el repositorio, ejecutar el siguiente comando: composer install
 
 
 ## Ajustes y ejecución
