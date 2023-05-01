@@ -35,8 +35,8 @@ MySQL
 Esto generará el archivo .env en base al .env.example.
 - crear una base de datos con el siguiente nombre: quind
 - generar el app key de la aplicación con el siguiente comando: php artisan key:generate
-- ejecutar el siguiene comando: php artisan migrate --seed para generar las migraciones y ejecutar los seeders.
-- ejecutar el siguiene comando: npm install
+- ejecutar el siguiente comando: php artisan migrate --seed para generar las migraciones y ejecutar los seeders.
+- ejecutar el siguiente comando: npm install
 - Ejecutar el siguiente comando: npm run watch
 esto para correr el componente de vue.
 - Para ejecutar el proyecto, ejecutar el siguiente comando: php artisan serve
@@ -45,6 +45,8 @@ Nota: Para correr la primera parte de la prueba, ingrese los siguientes links:
 http://127.0.0.1:8000/order
 http://127.0.0.1:8000/verifyString
 
+y para el alquiler de cámaras
+http://127.0.0.1:8000/
 
 ## License
 
