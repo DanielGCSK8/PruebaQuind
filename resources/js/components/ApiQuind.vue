@@ -7,7 +7,11 @@
            <th class="w-20 py-4">ID de Renta</th>
            <th class="w-20 py-4"> Nombre de Cámara</th>
            <th class="w-20 py-4">Nombre de Cliente</th>
+           <th class="w-20 py-4">Fecha de inicio</th>
+           <th class="w-20 py-4">Fecha Final</th>
            <th class="w-20 py-4">Estado de Alquiler</th>
+           <th class="w-20 py-4">Acciones</th>
+           <th class="w-20 py-4"></th>
          </tr>
        </thead>
        <tbody>
@@ -15,8 +19,19 @@
            <td class="p-3 text-center">{{ renta.id }}</td>
            <td class="p-3 text-center">{{ renta.camera.brand }}</td>
            <td class="p-3 text-center">{{ renta.client.name }} {{ renta.client.second_name }}</td>
+           <td class="p-3 text-center">{{ renta.start_date }}</td>
+           <td class="p-3 text-center">{{ renta.end_Date }}</td>
            <td class="p-3 text-center" v-if="renta.status == 1">Alquilado</td>
-           <td class="p-3 text-center" v-else> Pasado de tiempo </td>
+           <td class="p-3 text-center" v-else-if="renta.status == 2"> Alquiler finalizado </td>
+           <td class="p-3 text-center" v-else> En Multa </td>
+           <td class="p-3 text-center" v-if="renta.status != 0 && renta.status != 2"><button @click="editStatus(renta.id, renta.camera.id, status = 2)" 
+           class="bg-green-500 text-white px-3 py-1 rounded-sm">Finalizar Alquiler</button></td>
+           <td class="p-3 text-center" v-if="renta.status != 0 && renta.status != 2">
+           <button @click="editStatus(renta.id, renta.camera.id, status = 0)" 
+           class="bg-green-500 text-white px-3 py-1 rounded-sm">Multar</button></td>
+           <td class="p-3 text-center" v-if="renta.status == 0">
+           <button @click="editStatus(renta.id, renta.camera.id = null, status = 2)" 
+           class="bg-green-500 text-white px-3 py-1 rounded-sm">Quitar Multa</button></td>
          </tr>
        </tbody>
      </table>
@@ -32,13 +47,13 @@
     <form @submit.prevent="createRent" class="mt-4">
     
         <select class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-500 
-         p-2 my-2 focus:bg-white" v-model="camera_id">
-              <option value="" selected>Seleccione una cámara</option>
+         p-2 my-2 focus:bg-white" v-model="camera_id" required>
+              <option value="">Seleccione una cámara</option>
              <option v-for="camera in cameras" :value="camera.id">{{ camera.brand }} - {{ camera.model }}</option>
         </select>
         <select class="border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-500 
-        p-2 my-2 focus:bg-white" v-model="client_id">
-             <option value="" selected>Seleccione un cliente</option>
+        p-2 my-2 focus:bg-white" v-model="client_id" required>
+             <option value="">Seleccione un cliente</option>
              <option v-for="client in clients" :value="client.id">{{ client.name }} - {{ client.second_name }}</option>
         </select>
     
@@ -68,6 +83,7 @@ export default {
         this.rents = response.data.rents
         this.cameras = response.data.cameras
         this.clients = response.data.clients
+
       })
       .catch(error => {
         console.log(error)
@@ -82,13 +98,27 @@ export default {
         .then(response => {
           console.log(response);
           alert('El alquiler ha sido creado');
-          // this.obtenerAlquileres();
+          location.reload();
+          
         })
         .catch(error => {
           console.log(error);
-          alert('Ha ocurrido un error al crear el alquiler');
+          alert(error.response.data.message);
         });
-      }
+      },
+      editStatus(rentaId, cameraId, status) {
+        axios.put(`http://127.0.0.1:8000/api/rents/${rentaId}`, { camera_id: cameraId, status: status})
+          .then(response => {
+            // Actualizar el estado de la renta localmente
+            console.log(response);
+            alert('El alquiler ha sido finalizado correctamente');
+            location.reload();
+          })
+          .catch(error => {
+            console.log(error);
+            alert('Ha ocurrido un error inesperado');
+          });
+  }
   }
 }
 </script>

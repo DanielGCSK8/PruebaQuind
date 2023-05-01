@@ -19744,10 +19744,24 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         console.log(response);
         alert('El alquiler ha sido creado');
-        // this.obtenerAlquileres();
+        location.reload();
       })["catch"](function (error) {
         console.log(error);
-        alert('Ha ocurrido un error al crear el alquiler');
+        alert(error.response.data.message);
+      });
+    },
+    editStatus: function editStatus(rentaId, cameraId, status) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("http://127.0.0.1:8000/api/rents/".concat(rentaId), {
+        camera_id: cameraId,
+        status: status
+      }).then(function (response) {
+        // Actualizar el estado de la renta localmente
+        console.log(response);
+        alert('El alquiler ha sido finalizado correctamente');
+        location.reload();
+      })["catch"](function (error) {
+        console.log(error);
+        alert('Ha ocurrido un error inesperado');
       });
     }
   }
@@ -19787,7 +19801,15 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "w-20 py-4"
 }, "Nombre de Cliente"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
   "class": "w-20 py-4"
-}, "Estado de Alquiler")])], -1 /* HOISTED */);
+}, "Fecha de inicio"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "w-20 py-4"
+}, "Fecha Final"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "w-20 py-4"
+}, "Estado de Alquiler"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "w-20 py-4"
+}, "Acciones"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  "class": "w-20 py-4"
+})])], -1 /* HOISTED */);
 var _hoisted_5 = {
   "class": "p-3 text-center"
 };
@@ -19798,32 +19820,55 @@ var _hoisted_7 = {
   "class": "p-3 text-center"
 };
 var _hoisted_8 = {
-  key: 0,
   "class": "p-3 text-center"
 };
 var _hoisted_9 = {
+  "class": "p-3 text-center"
+};
+var _hoisted_10 = {
+  key: 0,
+  "class": "p-3 text-center"
+};
+var _hoisted_11 = {
   key: 1,
   "class": "p-3 text-center"
 };
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 var _hoisted_12 = {
+  key: 2,
+  "class": "p-3 text-center"
+};
+var _hoisted_13 = {
+  key: 3,
+  "class": "p-3 text-center"
+};
+var _hoisted_14 = ["onClick"];
+var _hoisted_15 = {
+  key: 4,
+  "class": "p-3 text-center"
+};
+var _hoisted_16 = ["onClick"];
+var _hoisted_17 = {
+  key: 5,
+  "class": "p-3 text-center"
+};
+var _hoisted_18 = ["onClick"];
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+var _hoisted_21 = {
   "class": "block mx-auto my-12 p-8 bg-white w-1/3 border border-gray-200 rounded-lg shadow-lg text-gray-800"
 };
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
   "class": "text-center text-3xl font-bold"
 }, "Crear Alquiler", -1 /* HOISTED */);
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  value: "",
-  selected: ""
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: ""
 }, "Seleccione una cámara", -1 /* HOISTED */);
-var _hoisted_15 = ["value"];
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  value: "",
-  selected: ""
+var _hoisted_24 = ["value"];
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: ""
 }, "Seleccione un cliente", -1 /* HOISTED */);
-var _hoisted_17 = ["value"];
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_26 = ["value"];
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "submit",
   "class": "rounded-md bg-green-500 w-full text-lg text-white font-semibold p-2 my-3 hover:bg-green-600 focus:bg-green-700"
 }, "Alquilar", -1 /* HOISTED */);
@@ -19832,8 +19877,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.rents, function (renta) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: renta.id
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(renta.id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(renta.camera.brand), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(renta.client.name) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(renta.client.second_name), 1 /* TEXT */), renta.status == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_8, "Alquilado")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_9, " Pasado de tiempo "))]);
-  }), 128 /* KEYED_FRAGMENT */))])])])]), _hoisted_10, _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(renta.id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(renta.camera.brand), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(renta.client.name) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(renta.client.second_name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(renta.start_date), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(renta.end_Date), 1 /* TEXT */), renta.status == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_10, "Alquilado")) : renta.status == 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_11, " Alquiler finalizado ")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_12, " En Multa ")), renta.status != 0 && renta.status != 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      onClick: function onClick($event) {
+        return $options.editStatus(renta.id, renta.camera.id, _ctx.status = 2);
+      },
+      "class": "bg-green-500 text-white px-3 py-1 rounded-sm"
+    }, "Finalizar Alquiler", 8 /* PROPS */, _hoisted_14)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), renta.status != 0 && renta.status != 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      onClick: function onClick($event) {
+        return $options.editStatus(renta.id, renta.camera.id, _ctx.status = 0);
+      },
+      "class": "bg-green-500 text-white px-3 py-1 rounded-sm"
+    }, "Multar", 8 /* PROPS */, _hoisted_16)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), renta.status == 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      onClick: function onClick($event) {
+        return $options.editStatus(renta.id, renta.camera.id = null, _ctx.status = 2);
+      },
+      "class": "bg-green-500 text-white px-3 py-1 rounded-sm"
+    }, "Quitar Multa", 8 /* PROPS */, _hoisted_18)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
+  }), 128 /* KEYED_FRAGMENT */))])])])]), _hoisted_19, _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.createRent && $options.createRent.apply($options, arguments);
     }, ["prevent"])),
@@ -19842,21 +19902,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-500 p-2 my-2 focus:bg-white",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.camera_id = $event;
-    })
-  }, [_hoisted_14, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.cameras, function (camera) {
+    }),
+    required: ""
+  }, [_hoisted_23, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.cameras, function (camera) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
       value: camera.id
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(camera.brand) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(camera.model), 9 /* TEXT, PROPS */, _hoisted_15);
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(camera.brand) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(camera.model), 9 /* TEXT, PROPS */, _hoisted_24);
   }), 256 /* UNKEYED_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.camera_id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "border border-gray-200 rounded-md bg-gray-200 w-full text-lg placeholder-gray-500 p-2 my-2 focus:bg-white",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $data.client_id = $event;
-    })
-  }, [_hoisted_16, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.clients, function (client) {
+    }),
+    required: ""
+  }, [_hoisted_25, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.clients, function (client) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
       value: client.id
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(client.name) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(client.second_name), 9 /* TEXT, PROPS */, _hoisted_17);
-  }), 256 /* UNKEYED_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.client_id]]), _hoisted_18], 32 /* HYDRATE_EVENTS */)])], 64 /* STABLE_FRAGMENT */);
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(client.name) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(client.second_name), 9 /* TEXT, PROPS */, _hoisted_26);
+  }), 256 /* UNKEYED_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.client_id]]), _hoisted_27], 32 /* HYDRATE_EVENTS */)])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),

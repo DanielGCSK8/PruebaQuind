@@ -22,11 +22,7 @@ class RentController extends Controller
         $rents = Rental::with('camera','client')->get();
         $cameras = Camera::all();
         $clients = Client::all();
-        if(count($rents) == 0) {
-            return response()->json(['Mensaje' => 'No hay ninguna camara alquilada'], 404);
-        }
 
-        // return response()->json($rents);
         return response()->json([
             'rents' => $rents,
             'cameras' => $cameras,
@@ -63,15 +59,23 @@ class RentController extends Controller
             return response()->json(['message' => 'La cámara no está disponible para alquilar'], 400);
         }
         
-        // // Recuperamos el cliente
-        $rental = Rental::find($request->client_id);
-        
+        // // Recuperamos las rentas
+        $rental = Rental::with('client')
+        ->where('client_id', $request->client_id)
+        ->orderBy('created_at', 'desc')
+        ->first();
+   
         // Comprobamos si el cliente ya tiene una cámara alquilada
-        if ($rental != null) {
+    if($rental != null){
+        if ($rental->status == 1) {
             return response()->json(['message' => 'El cliente ya tiene una cámara alquilada'], 400);
-        }
 
-        //estado 1 en curso, 0 retrasado
+        } else if($rental->status == 0) {
+            return response()->json(['message' => 'El cliente está multado, no puede alquilar cámara'], 400);
+        }
+    }
+
+        //estado 1 en curso, 2 finalizado, 0 retrasado
         $rent = new Rental();
         $rent->camera_id = $request->camera_id;
         $rent->client_id = $request->client_id;
@@ -118,7 +122,19 @@ class RentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rents = Rental::findOrFail($id);
+        $rents->status = $request->status;
+        $rents->update();
+
+        $camera_id = $request->input('camera_id');
+        if($camera_id != null){
+            $camera = Camera::findOrFail($camera_id);
+            $camera->status = 1;
+            $camera->update();
+            
+        }
+       
+        return response()->json(['message' => 'Alquiler finalizado correctamente'], 200);
     }
 
     /**

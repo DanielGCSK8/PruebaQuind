@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/rents',[RentController::class, 'index'])->name('rents.index');
 Route::post('/rents/insert',[RentController::class, 'store'])->name('rents.store');
+Route::put('/rents/{id}',[RentController::class, 'update'])->name('rents.update');
