@@ -42,7 +42,7 @@ esto para correr el componente de vue.
 - Para ejecutar el proyecto, ejecutar el siguiente comando: php artisan serve
 
 Nota: Para correr la primera parte de la prueba, ingrese los siguientes links:
-http://127.0.0.1:8000/Order
+http://127.0.0.1:8000/order
 http://127.0.0.1:8000/verifyString
 
 
